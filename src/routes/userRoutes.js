@@ -3,6 +3,10 @@ import UserCtrl from '../controllers/UserCtrl.js'
 const router = new Router
 
 router.post('/', UserCtrl.store)
+router.get('/', UserCtrl.index)
+router.get('/:id', UserCtrl.show)
+router.put('/:id', UserCtrl.update)
+router.delete('/:id', UserCtrl.delete)
 
 export default router
 
