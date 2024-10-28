@@ -1,9 +1,9 @@
 class HomeCtrl {
-    index(req, res){
-        res.json({
-            tudoCerto: true
-        })
-    }
+  index(req, res){
+    res.json({
+      TudoCerto: true
+    })
+  }
 }
 
-export default new HomeCtrl();
+export default new HomeCtrl
