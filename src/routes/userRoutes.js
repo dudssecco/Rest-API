@@ -4,7 +4,7 @@ import loginRequired from '../middlewares/loginRequired.js';
 const router = new Router
 
 router.get('/', UserCtrl.index)
-router.get('/:id', UserCtrl.show)
+// router.get('/:id', UserCtrl.show)
 
 router.post('/', UserCtrl.store)
 router.put('/', loginRequired, UserCtrl.update)
