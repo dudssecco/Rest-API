@@ -3,8 +3,9 @@ import User from "../models/User"
 class UserCtrl {
   async store(req, res){
     try{
-      const novoUser = await User.create(req.body);
-      return res.json(novoUser)
+      const newUser = await User.create(req.body);
+      const { id, nome, email } = newUser
+      return res.json({ id, nome, email })
     } catch(err){
       console.error(err)
       return res.status(400).json({
@@ -15,7 +16,7 @@ class UserCtrl {
 
   async index(req, res){
     try{
-      const users = await User.findAll()
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email']});
       return res.json(users)
     } catch{
       return res.json(null)
@@ -26,7 +27,8 @@ class UserCtrl {
     try{
       const { id } = req.params;
       const user = await User.findByPk(id)
-      return res.json(user)
+      const { nome, email } = user
+      return res.json({ id, nome, email })
     } catch{
       return res.json(null)
     }
@@ -34,23 +36,16 @@ class UserCtrl {
 
   async update(req, res){
     try{
-      const { id } = req.params;
-      if(!id){
-        res.status(400).json({
-          errors: ['Id não encontrado']
-        })
-      }
-
-      const user = await User.findByPk(id)
+      const user = await User.findByPk(req.userId)
       if(!user){
         res.status(400).json({
           errors: ['Usuário não encontrado']
         })
       }
 
-      await user.update(req.body)
-
-      return res.json(user)
+      const newData = await user.update(req.body)
+      const { id, nome, email } = newData
+      return res.json({ id, nome, email })
     } catch(err){
       return res.status(400).json({
         errors: err.errors.map(err => err.message)
@@ -60,14 +55,7 @@ class UserCtrl {
 
   async delete(req, res){
     try{
-      const { id } = req.params;
-      if(!id){
-        res.status(400).json({
-          errors: ['Id não encontrado']
-        })
-      }
-
-      const user = await User.findByPk(id)
+      const user = await User.findByPk(req.userId)
       if(!user){
         res.status(400).json({
           errors: ['Usuário não encontrado']
@@ -75,7 +63,7 @@ class UserCtrl {
       }
 
       await user.destroy()
-      return res.json(user)
+      return res.json(null)
     } catch(err){
       return res.status(400).json({
         errors: err.errors.map(err => err.message)
