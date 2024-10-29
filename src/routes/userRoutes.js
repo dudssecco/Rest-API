@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import UserCtrl from '../controllers/UserCtrl.js'
+import loginRequired from '../middlewares/loginRequired.js';
 const router = new Router
 
 router.post('/', UserCtrl.store)
-router.get('/', UserCtrl.index)
+router.get('/', loginRequired, UserCtrl.index)
 router.get('/:id', UserCtrl.show)
 router.put('/:id', UserCtrl.update)
 router.delete('/:id', UserCtrl.delete)
