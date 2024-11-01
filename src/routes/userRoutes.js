@@ -3,7 +3,7 @@ import UserCtrl from '../controllers/UserCtrl.js'
 import loginRequired from '../middlewares/loginRequired.js';
 const router = new Router
 
-router.get('/', UserCtrl.index)
+// router.get('/', UserCtrl.index)
 // router.get('/:id', UserCtrl.show)
 
 router.post('/', UserCtrl.store)
