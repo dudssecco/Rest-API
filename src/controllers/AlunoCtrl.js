@@ -9,7 +9,7 @@ class AlunoCtrl {
         order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
         include: {
           model: Photo,
-          attributes: ['filename']
+          attributes: ['url', 'filename']
         }
       });
       return res.json(alunos)
@@ -34,9 +34,10 @@ class AlunoCtrl {
         order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
         include: {
           model: Photo,
-          attributes: ['filename']
+          attributes: ['url', 'filename']
         }
-      })
+      });
+
       if(!aluno){
         return res.status(400).json({
           errors: ['Aluno inexistente']
