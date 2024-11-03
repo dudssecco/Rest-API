@@ -14,10 +14,16 @@ class PhotoCtrl {
           })
         }
 
-        const { originalname, filename } = req.file
+        try{
+          const { originalname, filename } = req.file
         const { aluno_id } = req.body
         const newPhoto = await Photo.create({ originalname, filename, aluno_id })
         return res.json(newPhoto)
+        }catch{
+          return res.status(400).json({
+            errors: ['Aluno inexistente']
+          })
+        }
     })
   }
 }
